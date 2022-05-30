@@ -1,4 +1,6 @@
 import * as d3 from 'd3';
+import uniqid from 'uniqid';
+
 import { Layer } from '../Layer';
 
 export type PitchOptions = {
@@ -39,6 +41,17 @@ export class Pitch {
     this._pitch = val;
   }
 
+  private _layers: any //TODO add types for layer
+
+  get layers() {
+    return this._layers;
+  }
+
+  set layers(val) {
+    this._layers = val;
+  }
+
+
   sizes: any;
 
   constructor(private pitchSelector: string, private pitchOptions: PitchOptions) {
@@ -55,6 +68,8 @@ export class Pitch {
       goalBoxHeigth: this.goal.heigth * pitchOptions.scaler,
       goalBoxTop: this.goal.top * pitchOptions.scaler,
     };
+
+    this.layers = {}
 
     this.initPitch(pitchSelector, pitchOptions, this.sizes);
   }
@@ -186,11 +201,26 @@ export class Pitch {
     return svg;
   }
 
-  addLayer(this: Pitch, layer: Layer) {
+  addLayer(this: Pitch, layer: Layer) { 
     console.log('data', this, layer);
+		let id = uniqid('rabona')
+		if (this.layers[id]) { 
+      return this
+     }
+		this.layers[id] = layer;
+
+		layer.pitchToAdd = this;
+    layer.id = id
+
+    // TODO add beforeAdd events here
+		// if (layer.beforeAdd) {
+		// 	layer.beforeAdd(this);
+		// }
+
+    const currentPitch = this.pitch
+    ?.append("g").attr("id", id)
     for (const pass of layer.data) {
-      this.pitch
-        ?.append('line')
+      currentPitch.append('line')
         .style('stroke', 'magenta')
         .style('stroke-width', 1.2)
         .attr('x1', pass.startX * this.pitchOptions.scaler + 50)
@@ -201,6 +231,20 @@ export class Pitch {
     }
     // console.log('add layer');
     return this;
+  }
+
+  removeLayer(layer: Layer) {
+		let id = layer.id!
+
+		if (!this._layers[id]) { return this; }
+
+    const selectedLayer = this.pitch.select(`#${id}`)
+    selectedLayer.remove()
+		delete this._layers[id];
+		layer.pitchToAdd = undefined;
+    layer.id = undefined
+
+		return this;
   }
 }
 

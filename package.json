@@ -6,10 +6,15 @@
   "license": "MIT",
   "scripts": {
     "ts-types": "tsc",
-    "build": "rimraf lib && node ./esbuild.js && yarn ts-types",
-    "build2": "rimraf lib && tsup && yarn ts-types"
+    "build": "rimraf lib && tsup && yarn ts-types",
+    "build:watch": "rimraf lib && yarn ts-types &&  tsup --watch"
   },
   "devDependencies": {
+    "eslint": "^8.16.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "rimraf": "^3.0.2",
     "tsup": "^6.0.1"
   },
@@ -18,7 +23,8 @@
   "types": "lib/index.d.ts",
   "dependencies": {
     "d3": "^7.4.4",
-    "typescript": "^4.7.2"
+    "typescript": "^4.7.2",
+    "uniqid": "^5.4.0"
   },
   "type": "module"
 }
