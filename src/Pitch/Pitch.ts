@@ -41,7 +41,7 @@ export class Pitch {
     this._pitch = val;
   }
 
-  private _layers: any //TODO add types for layer
+  private _layers: any; //TODO add types for layer
 
   get layers() {
     return this._layers;
@@ -50,7 +50,6 @@ export class Pitch {
   set layers(val) {
     this._layers = val;
   }
-
 
   sizes: any;
 
@@ -69,7 +68,7 @@ export class Pitch {
       goalBoxTop: this.goal.top * pitchOptions.scaler,
     };
 
-    this.layers = {}
+    this.layers = {};
 
     this.initPitch(pitchSelector, pitchOptions, this.sizes);
   }
@@ -201,26 +200,26 @@ export class Pitch {
     return svg;
   }
 
-  addLayer(this: Pitch, layer: Layer) { 
+  addLayer(this: Pitch, layer: Layer) {
     console.log('data', this, layer);
-		let id = uniqid('rabona')
-		if (this.layers[id]) { 
-      return this
-     }
-		this.layers[id] = layer;
+    let id = uniqid('rabona');
+    if (this.layers[id]) {
+      return this;
+    }
+    this.layers[id] = layer;
 
-		layer.pitchToAdd = this;
-    layer.id = id
+    layer.pitchToAdd = this;
+    layer.id = id;
 
     // TODO add beforeAdd events here
-		// if (layer.beforeAdd) {
-		// 	layer.beforeAdd(this);
-		// }
+    // if (layer.beforeAdd) {
+    // 	layer.beforeAdd(this);
+    // }
 
-    const currentPitch = this.pitch
-    ?.append("g").attr("id", id)
+    const currentPitch = this.pitch?.append('g').attr('id', id);
     for (const pass of layer.data) {
-      currentPitch.append('line')
+      currentPitch
+        .append('line')
         .style('stroke', 'magenta')
         .style('stroke-width', 1.2)
         .attr('x1', pass.startX * this.pitchOptions.scaler + 50)
@@ -234,17 +233,19 @@ export class Pitch {
   }
 
   removeLayer(layer: Layer) {
-		let id = layer.id!
+    let id = layer.id!;
 
-		if (!this._layers[id]) { return this; }
+    if (!this._layers[id]) {
+      return this;
+    }
 
-    const selectedLayer = this.pitch.select(`#${id}`)
-    selectedLayer.remove()
-		delete this._layers[id];
-		layer.pitchToAdd = undefined;
-    layer.id = undefined
+    const selectedLayer = this.pitch.select(`#${id}`);
+    selectedLayer.remove();
+    delete this._layers[id];
+    layer.pitchToAdd = undefined;
+    layer.id = undefined;
 
-		return this;
+    return this;
   }
 }
 
