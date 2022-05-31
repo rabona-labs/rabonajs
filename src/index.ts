@@ -1,7 +1,7 @@
-import { pitch } from './Pitch';
 import { layer } from './Layer';
+import { pitch } from './Pitch';
 
-var Rabona = {
+const Rabona = {
   pitch,
   layer,
 };

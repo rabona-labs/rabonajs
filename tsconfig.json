@@ -11,10 +11,10 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "rootDir": "src",
-    "emitDeclarationOnly": true,
+    "emitDeclarationOnly": true
   },
   "include": [
     "./src/**/*",
-    "lib/index.d.ts",   // declaration file path
+    "lib/index.d.ts" // declaration file path
   ]
 }

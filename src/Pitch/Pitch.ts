@@ -202,7 +202,7 @@ export class Pitch {
 
   addLayer(this: Pitch, layer: Layer) {
     console.log('data', this, layer);
-    let id = uniqid('rabona');
+    const id = uniqid('rabona');
     if (this.layers[id]) {
       return this;
     }
@@ -233,7 +233,7 @@ export class Pitch {
   }
 
   removeLayer(layer: Layer) {
-    let id = layer.id!;
+    const id = layer.id!;
 
     if (!this._layers[id]) {
       return this;
