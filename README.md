@@ -25,8 +25,21 @@ npm install rabonajs
 ```typescript
 import Rabona from 'rabonajs';
 
+const pitchOptions = {
+  scaler: 6,
+  height: 80,
+  width: 120,
+  padding: 100,
+  linecolour: '#ffffff',
+  fillcolour: '#7ec850',
+};
+
 const pitch = Rabona.pitch('pitch', pitchOptions);
+
+```html
+<div id="pitch" ref={pitchRef} />
 ```
+
 <img width="734" alt="Screen Shot 2022-06-10 at 00 03 58" src="https://user-images.githubusercontent.com/812622/172945125-be67346f-561a-4c0e-b467-ca638b3b4ae7.png">
 
 
