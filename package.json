@@ -1,7 +1,7 @@
 {
   "name": "rabonajs",
   "version": "0.0.1",
-  "description": "Draw a football pitch by js ",
+  "description": "RabonaJS is a simple D3 wrapper to make soccer visualisations",
   "author": "ozerorhun@gmail.com",
   "license": "MIT",
   "scripts": {
