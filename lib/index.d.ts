@@ -1,7 +1,10 @@
-import { layer } from './Layer';
-import { pitch } from './Pitch';
+declare function createPitch(pitchSelector: string, pitchOptions: PitchOptions): Pitch;
+
+declare function createLayer({ type, options, data }: CreateLayerInputs): Layer;
+
 declare const Rabona: {
-    pitch: typeof pitch;
-    layer: typeof layer;
+    pitch: typeof createPitch;
+    layer: typeof createLayer;
 };
-export default Rabona;
+
+export { Rabona as default };

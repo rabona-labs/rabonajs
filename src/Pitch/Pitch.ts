@@ -217,6 +217,21 @@ export class Pitch {
     // }
 
     const currentPitch = this.pitch?.append('g').attr('id', id);
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const arrow = currentPitch
+      .append('svg:defs')
+      .append('svg:marker')
+      .attr('id', 'arrow')
+      .attr('viewBox', '0 -5 10 10')
+      .attr('refX', 0) //so that it comes towards the center.
+      .attr('markerWidth', 5)
+      .attr('markerHeight', 5)
+      .attr('orient', 'auto')
+      .append('svg:path')
+      .attr('d', 'M0,-5L10,0L0,5')
+      .style('fill', 'magenta');
+
     for (const pass of layer.data) {
       currentPitch
         .append('line')
@@ -225,8 +240,8 @@ export class Pitch {
         .attr('x1', pass.startX * this.pitchOptions.scaler + 50)
         .attr('y1', pass.startY * this.pitchOptions.scaler + 50)
         .attr('x2', pass.endX * this.pitchOptions.scaler + 50)
-        .attr('y2', pass.endY * this.pitchOptions.scaler + 50);
-      // .attr('marker-end');
+        .attr('y2', pass.endY * this.pitchOptions.scaler + 50)
+        .attr('marker-end', 'url(#arrow)');
     }
     // console.log('add layer');
     return this;
