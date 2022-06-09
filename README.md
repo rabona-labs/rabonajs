@@ -35,9 +35,10 @@ const pitchOptions = {
 };
 
 const pitch = Rabona.pitch('pitch', pitchOptions);
+```
 
 ```html
-<div id="pitch" ref={pitchRef} />
+<div id="pitch" />
 ```
 
 <img width="734" alt="Screen Shot 2022-06-10 at 00 03 58" src="https://user-images.githubusercontent.com/812622/172945125-be67346f-561a-4c0e-b467-ca638b3b4ae7.png">
