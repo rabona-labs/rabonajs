@@ -4,6 +4,7 @@
   "description": "RabonaJS is a simple D3 wrapper to make soccer visualisations",
   "author": "ozerorhun@gmail.com",
   "license": "MIT",
+  "url": "https://github.com/orabazu/rabonajs",
   "scripts": {
     "ts-types": "tsc",
     "build": "rimraf lib && tsup && yarn ts-types",
