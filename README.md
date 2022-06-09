@@ -1,3 +1,6 @@
+
+[![npm](https://img.shields.io/npm/v/rabonajs)](https://www.npmjs.com/package/rabonajs)
+
 <img width="250" alt="Screen Shot 2022-06-09 at 23 16 45" src="https://user-images.githubusercontent.com/812622/172951243-7b294967-7326-40dc-8f8d-cf194cca5510.png">
 
 
