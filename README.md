@@ -1,6 +1,6 @@
 ## RabonaJS - A Javascript library for football(soccer) visualisations 
 
-**RabonaJS** is a simple d3 wrapper to make soccer visualisations easier in JS. 
+**RabonaJS** is a simple D3 wrapper to make soccer visualisations
 
 ## Usage
 
