@@ -250,12 +250,12 @@ export class Pitch {
       .attr('orient', 'auto')
       .append('svg:path')
       .attr('d', 'M0,-5L10,0L0,5')
-      .style('fill', 'magenta');
+      .style('fill', layer.options.color || 'magenta');
 
     for (const pass of layer.data) {
       currentPitch
         .append('line')
-        .style('stroke', 'magenta')
+        .style('stroke', layer.options.color || 'magenta')
         .style('stroke-width', 1.2)
         .attr('x1', pass.startX * this.pitchOptions.scaler + 50)
         .attr('y1', pass.startY * this.pitchOptions.scaler + 50)
