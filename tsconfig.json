@@ -2,7 +2,10 @@
   "compilerOptions": {
     "declaration": true,
     "target": "ESNext",
-    "lib": ["esnext", "dom"],
+    "lib": [
+      "esnext",
+      "dom"
+    ],
     "strict": true,
     "noImplicitAny": false,
     "esModuleInterop": true,
@@ -11,7 +14,8 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "rootDir": "src",
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
+    "strictPropertyInitialization": false
   },
   "include": [
     "./src/**/*",
