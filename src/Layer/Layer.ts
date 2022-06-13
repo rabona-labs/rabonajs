@@ -1,6 +1,6 @@
 import { Pitch } from '../Pitch';
 
-export type RabonaLayer = 'line | point';
+export type RabonaLayer = 'line' | 'point';
 export type RabonaLayerOptions = {
   color: string;
 };
