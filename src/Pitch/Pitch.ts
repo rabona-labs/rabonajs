@@ -3,13 +3,27 @@ import uniqid from 'uniqid';
 
 import { Layer } from '../Layer';
 
-export type PitchOptions = {
+export type RabonaPitchOptions = {
   scaler: number;
   height: number;
   width: number;
   padding: number;
   linecolour: string;
   fillcolour: string;
+};
+
+type RabonaPitchSizeOptions = {
+  width: number;
+  height: number;
+  sixYardBoxWidth: number;
+  sixYardBoxHeight: number;
+  sixYardBoxTop: number;
+  penaltyBoxWidth: number;
+  penaltyBoxHeigth: number;
+  penaltyBoxTop: number;
+  goalBoxWidth: number;
+  goalBoxHeigth: number;
+  goalBoxTop: number;
 };
 
 export class Pitch {
@@ -32,28 +46,30 @@ export class Pitch {
   };
 
   private _pitch: d3.Selection<SVGSVGElement, unknown, HTMLElement, any> | undefined;
-
-  get pitch() {
+  public get pitch() {
     return this._pitch;
   }
-
-  set pitch(val) {
+  public set pitch(val) {
     this._pitch = val;
   }
 
-  private _layers: any; //TODO add types for layer
-
-  get layers() {
+  private _layers: { [id: string]: Layer };
+  public get layers() {
     return this._layers;
   }
-
-  set layers(val) {
+  public set layers(val) {
     this._layers = val;
   }
 
-  sizes: any;
+  private _sizes: RabonaPitchSizeOptions;
+  public get sizes(): RabonaPitchSizeOptions {
+    return this._sizes;
+  }
+  public set sizes(value: RabonaPitchSizeOptions) {
+    this._sizes = value;
+  }
 
-  constructor(private pitchSelector: string, private pitchOptions: PitchOptions) {
+  constructor(private pitchSelector: string, private pitchOptions: RabonaPitchOptions) {
     this.sizes = {
       width: pitchOptions.width * pitchOptions.scaler,
       height: pitchOptions.height * pitchOptions.scaler,
@@ -77,7 +93,11 @@ export class Pitch {
     return this.pitchOptions;
   }
 
-  initPitch(pitchSelector: string, pitchOptions: PitchOptions, sizes: any) {
+  initPitch(
+    pitchSelector: string,
+    pitchOptions: RabonaPitchOptions,
+    sizes: RabonaPitchSizeOptions,
+  ) {
     const svg = d3
       .select(`#${pitchSelector}`)
       .append('svg')
@@ -230,12 +250,12 @@ export class Pitch {
       .attr('orient', 'auto')
       .append('svg:path')
       .attr('d', 'M0,-5L10,0L0,5')
-      .style('fill', 'magenta');
+      .style('fill', layer.options.color || 'magenta');
 
     for (const pass of layer.data) {
       currentPitch
         .append('line')
-        .style('stroke', 'magenta')
+        .style('stroke', layer.options.color || 'magenta')
         .style('stroke-width', 1.2)
         .attr('x1', pass.startX * this.pitchOptions.scaler + 50)
         .attr('y1', pass.startY * this.pitchOptions.scaler + 50)
@@ -248,15 +268,17 @@ export class Pitch {
   }
 
   removeLayer(layer: Layer) {
-    const id = layer.id!;
+    const id = layer.id;
 
-    if (!this._layers[id]) {
+    if (id && !this._layers[id]) {
       return this;
     }
 
     const selectedLayer = this.pitch.select(`#${id}`);
     selectedLayer.remove();
-    delete this._layers[id];
+    if (id) {
+      delete this._layers[id];
+    }
     layer.pitchToAdd = undefined;
     layer.id = undefined;
 
@@ -264,6 +286,6 @@ export class Pitch {
   }
 }
 
-export function createPitch(pitchSelector: string, pitchOptions: PitchOptions) {
+export function createPitch(pitchSelector: string, pitchOptions: RabonaPitchOptions) {
   return new Pitch(pitchSelector, pitchOptions);
 }

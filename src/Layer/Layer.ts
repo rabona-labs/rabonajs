@@ -1,11 +1,26 @@
 import { Pitch } from '../Pitch';
 
-export type RabonaLayerType = 'pass | shoot';
+export type RabonaLayer = 'line' | 'point';
+export type RabonaLayerOptions = {
+  color: string;
+};
+export type RabonaLayerData = {
+  startX: number;
+  startY: number;
+  endX: number;
+  endY: number;
+  length: number;
+  angle: number;
+};
 
 class Layer {
   public pitchToAdd?: Pitch;
   public id?: string;
-  constructor(public type: RabonaLayerType, public options: any, public data: any) {
+  constructor(
+    public type: RabonaLayer,
+    public options: RabonaLayerOptions,
+    public data: RabonaLayerData[],
+  ) {
     // console.log(type, options, data);
   }
 
@@ -31,9 +46,9 @@ class Layer {
 export { Layer };
 
 export type CreateLayerInputs = {
-  type: any;
-  options: any;
-  data: any;
+  type: RabonaLayer;
+  options: RabonaLayerOptions;
+  data: RabonaLayerData[];
 };
 export function createLayer({ type, options, data }: CreateLayerInputs) {
   return new Layer(type, options, data);
