@@ -221,7 +221,6 @@ export class Pitch {
   }
 
   addLayer(this: Pitch, layer: Layer) {
-    console.log('data', this, layer);
     const id = uniqid('rabona');
     if (this.layers[id]) {
       return this;
