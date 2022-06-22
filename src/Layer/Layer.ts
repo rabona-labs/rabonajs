@@ -3,14 +3,13 @@ import { Pitch } from '../Pitch';
 export type RabonaLayer = 'line' | 'point';
 export type RabonaLayerOptions = {
   color: string;
+  width: number;
 };
 export type RabonaLayerData = {
   startX: number;
   startY: number;
   endX: number;
   endY: number;
-  length: number;
-  angle: number;
 };
 
 class Layer {

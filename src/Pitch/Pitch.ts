@@ -247,20 +247,21 @@ export class Pitch {
       .attr('refX', 0) //so that it comes towards the center.
       .attr('markerWidth', 5)
       .attr('markerHeight', 5)
+      .attr('strokeWidth', layer.options.width || 1.2)
       .attr('orient', 'auto')
       .append('svg:path')
       .attr('d', 'M0,-5L10,0L0,5')
       .style('fill', layer.options.color || 'magenta');
 
-    for (const pass of layer.data) {
+    for (const line of layer.data) {
       currentPitch
         .append('line')
         .style('stroke', layer.options.color || 'magenta')
-        .style('stroke-width', 1.2)
-        .attr('x1', pass.startX * this.pitchOptions.scaler + 50)
-        .attr('y1', pass.startY * this.pitchOptions.scaler + 50)
-        .attr('x2', pass.endX * this.pitchOptions.scaler + 50)
-        .attr('y2', pass.endY * this.pitchOptions.scaler + 50)
+        .style('stroke-width', layer.options.width || 1.2)
+        .attr('x1', line.startX * this.pitchOptions.scaler + 50)
+        .attr('y1', line.startY * this.pitchOptions.scaler + 50)
+        .attr('x2', line.endX * this.pitchOptions.scaler + 50)
+        .attr('y2', line.endY * this.pitchOptions.scaler + 50)
         .attr('marker-end', 'url(#arrow)');
     }
     // console.log('add layer');

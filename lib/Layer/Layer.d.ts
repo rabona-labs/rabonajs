@@ -2,14 +2,13 @@ import { Pitch } from '../Pitch';
 export declare type RabonaLayer = 'line' | 'point';
 export declare type RabonaLayerOptions = {
     color: string;
+    width: number;
 };
 export declare type RabonaLayerData = {
     startX: number;
     startY: number;
     endX: number;
     endY: number;
-    length: number;
-    angle: number;
 };
 declare class Layer {
     type: RabonaLayer;
