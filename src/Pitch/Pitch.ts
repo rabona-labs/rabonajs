@@ -110,7 +110,6 @@ export class Pitch {
           sizes.height + pitchOptions.padding
         }`,
       );
-    console.log('vertical', pitchOptions.vertical);
 
     // experimental
     if (pitchOptions.vertical) {
