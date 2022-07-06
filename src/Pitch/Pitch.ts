@@ -10,6 +10,8 @@ export type RabonaPitchOptions = {
   padding: number;
   linecolour: string;
   fillcolour: string;
+  vertical?: boolean;
+  showArrows?: boolean;
 };
 
 type RabonaPitchSizeOptions = {
@@ -101,8 +103,21 @@ export class Pitch {
     const svg = d3
       .select(`#${pitchSelector}`)
       .append('svg')
-      .attr('width', sizes.width + pitchOptions.padding)
-      .attr('height', sizes.height + pitchOptions.padding);
+      .attr('width', '100%')
+      .attr(
+        'viewBox',
+        `0 0 ${sizes.width + pitchOptions.padding} ${
+          sizes.height + pitchOptions.padding
+        }`,
+      );
+
+    // experimental
+    if (pitchOptions.vertical) {
+      svg.style('transform', 'perspective(400px) rotateX(219deg) rotate(90deg)');
+      svg.style('width', '70%');
+      svg.style('margin', '0 auto');
+      svg.style('display', 'block');
+    }
 
     svg
       .append('rect')
@@ -221,7 +236,6 @@ export class Pitch {
   }
 
   addLayer(this: Pitch, layer: Layer) {
-    console.log('data', this, layer);
     const id = uniqid('rabona');
     if (this.layers[id]) {
       return this;
@@ -239,28 +253,31 @@ export class Pitch {
     const currentPitch = this.pitch?.append('g').attr('id', id);
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const arrow = currentPitch
-      .append('svg:defs')
-      .append('svg:marker')
-      .attr('id', 'arrow')
-      .attr('viewBox', '0 -5 10 10')
-      .attr('refX', 0) //so that it comes towards the center.
-      .attr('markerWidth', 5)
-      .attr('markerHeight', 5)
-      .attr('orient', 'auto')
-      .append('svg:path')
-      .attr('d', 'M0,-5L10,0L0,5')
-      .style('fill', layer.options.color || 'magenta');
+    const arrow = this.pitchOptions?.showArrows
+      ? currentPitch
+          .append('svg:defs')
+          .append('svg:marker')
+          .attr('id', 'arrow')
+          .attr('viewBox', '0 -5 10 10')
+          .attr('refX', 0) //so that it comes towards the center.
+          .attr('markerWidth', 5)
+          .attr('markerHeight', 5)
+          .attr('strokeWidth', layer.options.width || 1.2)
+          .attr('orient', 'auto')
+          .append('svg:path')
+          .attr('d', 'M0,-5L10,0L0,5')
+          .style('fill', layer.options.color || 'magenta')
+      : null;
 
-    for (const pass of layer.data) {
+    for (const line of layer.data) {
       currentPitch
         .append('line')
         .style('stroke', layer.options.color || 'magenta')
-        .style('stroke-width', 1.2)
-        .attr('x1', pass.startX * this.pitchOptions.scaler + 50)
-        .attr('y1', pass.startY * this.pitchOptions.scaler + 50)
-        .attr('x2', pass.endX * this.pitchOptions.scaler + 50)
-        .attr('y2', pass.endY * this.pitchOptions.scaler + 50)
+        .style('stroke-width', layer.options.width || 1.2)
+        .attr('x1', line.startX * this.pitchOptions.scaler + 50)
+        .attr('y1', line.startY * this.pitchOptions.scaler + 50)
+        .attr('x2', line.endX * this.pitchOptions.scaler + 50)
+        .attr('y2', line.endY * this.pitchOptions.scaler + 50)
         .attr('marker-end', 'url(#arrow)');
     }
     // console.log('add layer');

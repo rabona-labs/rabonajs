@@ -6,6 +6,8 @@ export declare type RabonaPitchOptions = {
     padding: number;
     linecolour: string;
     fillcolour: string;
+    vertical?: boolean;
+    showArrows?: boolean;
 };
 declare type RabonaPitchSizeOptions = {
     width: number;
