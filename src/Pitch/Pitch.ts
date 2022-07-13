@@ -269,16 +269,59 @@ export class Pitch {
           .style('fill', layer.options.color || 'magenta')
       : null;
 
-    for (const line of layer.data) {
-      currentPitch
-        .append('line')
-        .style('stroke', layer.options.color || 'magenta')
-        .style('stroke-width', layer.options.width || 1.2)
-        .attr('x1', line.startX * this.pitchOptions.scaler + 50)
-        .attr('y1', line.startY * this.pitchOptions.scaler + 50)
-        .attr('x2', line.endX * this.pitchOptions.scaler + 50)
-        .attr('y2', line.endY * this.pitchOptions.scaler + 50)
-        .attr('marker-end', 'url(#arrow)');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const temp: any = layer;
+
+    switch (temp.type) {
+      case 'circle':
+        currentPitch
+          .append('circle')
+          .attr('cx', temp.data.cx * this.pitchOptions.scaler + 50)
+          .attr('cy', temp.data.cy * this.pitchOptions.scaler + 50)
+          .attr('r', temp.data.radius || 10)
+          .style('fill', temp.options.color);
+
+        break;
+      case 'passLayer':
+        for (const line of temp.data) {
+          currentPitch
+            .append('line')
+            .style('stroke', temp.options.color || 'magenta')
+            .style('stroke-width', temp.options.width || 1.2)
+            .attr('x1', line.startX * this.pitchOptions.scaler + 50)
+            .attr('y1', line.startY * this.pitchOptions.scaler + 50)
+            .attr('x2', line.endX * this.pitchOptions.scaler + 50)
+            .attr('y2', line.endY * this.pitchOptions.scaler + 50)
+            .attr('marker-end', 'url(#arrow)');
+          currentPitch
+            .append('circle')
+            .attr('cx', line.startX * this.pitchOptions.scaler + 50)
+            .attr('cy', line.startY * this.pitchOptions.scaler + 50)
+            .attr('r', 20)
+            .style('fill', temp.options.color);
+          currentPitch
+            .append('circle')
+            .attr('cx', line.endX * this.pitchOptions.scaler + 50)
+            .attr('cy', line.endY * this.pitchOptions.scaler + 50)
+            .attr('r', 20)
+            .style('fill', temp.options.color);
+        }
+        break;
+      case 'point':
+      case 'line':
+      default:
+        for (const line of temp.data) {
+          currentPitch
+            .append('line')
+            .style('stroke', layer.options.color || 'magenta')
+            .style('stroke-width', layer.options.width || 1.2)
+            .attr('x1', line.startX * this.pitchOptions.scaler + 50)
+            .attr('y1', line.startY * this.pitchOptions.scaler + 50)
+            .attr('x2', line.endX * this.pitchOptions.scaler + 50)
+            .attr('y2', line.endY * this.pitchOptions.scaler + 50)
+            .attr('marker-end', 'url(#arrow)');
+        }
+        break;
     }
     // console.log('add layer');
     return this;
