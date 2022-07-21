@@ -2,6 +2,11 @@ import * as d3 from 'd3';
 import uniqid from 'uniqid';
 
 import { Layer } from '../Layer';
+import {
+  RabonaCircleLayerData,
+  RabonaLineLayerData,
+  RabonaPassLayerData,
+} from '../Layer/Layer';
 
 export type RabonaPitchOptions = {
   scaler: number;
@@ -269,48 +274,45 @@ export class Pitch {
           .style('fill', layer.options.color || 'magenta')
       : null;
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const temp: any = layer;
-
-    switch (temp.type) {
+    switch (layer.type) {
       case 'circle':
-        currentPitch
-          .append('circle')
-          .attr('cx', temp.data.cx * this.pitchOptions.scaler + 50)
-          .attr('cy', temp.data.cy * this.pitchOptions.scaler + 50)
-          .attr('r', temp.data.radius || 10)
-          .style('fill', temp.options.color);
-
+        (layer.data as RabonaCircleLayerData[]).forEach((circle) => {
+          currentPitch
+            .append('circle')
+            .attr('cx', circle.cx * this.pitchOptions.scaler + 50)
+            .attr('cy', circle.cy * this.pitchOptions.scaler + 50)
+            .attr('r', circle.radius || 10)
+            .style('fill', layer.options.color);
+        });
         break;
       case 'passLayer':
-        for (const line of temp.data) {
+        (layer.data as RabonaPassLayerData[]).forEach((pass) => {
           currentPitch
             .append('line')
-            .style('stroke', temp.options.color || 'magenta')
-            .style('stroke-width', temp.options.width || 1.2)
-            .attr('x1', line.startX * this.pitchOptions.scaler + 50)
-            .attr('y1', line.startY * this.pitchOptions.scaler + 50)
-            .attr('x2', line.endX * this.pitchOptions.scaler + 50)
-            .attr('y2', line.endY * this.pitchOptions.scaler + 50)
+            .style('stroke', layer.options.color || 'magenta')
+            .style('stroke-width', layer.options.width || 1.2)
+            .attr('x1', pass.startX * this.pitchOptions.scaler + 50)
+            .attr('y1', pass.startY * this.pitchOptions.scaler + 50)
+            .attr('x2', pass.endX * this.pitchOptions.scaler + 50)
+            .attr('y2', pass.endY * this.pitchOptions.scaler + 50)
             .attr('marker-end', 'url(#arrow)');
           currentPitch
             .append('circle')
-            .attr('cx', line.startX * this.pitchOptions.scaler + 50)
-            .attr('cy', line.startY * this.pitchOptions.scaler + 50)
+            .attr('cx', pass.startX * this.pitchOptions.scaler + 50)
+            .attr('cy', pass.startY * this.pitchOptions.scaler + 50)
             .attr('r', 20)
-            .style('fill', temp.options.color);
+            .style('fill', layer.options.color);
           currentPitch
             .append('circle')
-            .attr('cx', line.endX * this.pitchOptions.scaler + 50)
-            .attr('cy', line.endY * this.pitchOptions.scaler + 50)
+            .attr('cx', pass.endX * this.pitchOptions.scaler + 50)
+            .attr('cy', pass.endY * this.pitchOptions.scaler + 50)
             .attr('r', 20)
-            .style('fill', temp.options.color);
-        }
+            .style('fill', layer.options.color);
+        });
         break;
-      case 'point':
       case 'line':
       default:
-        for (const line of temp.data) {
+        (layer.data as RabonaLineLayerData[]).forEach((line) => {
           currentPitch
             .append('line')
             .style('stroke', layer.options.color || 'magenta')
@@ -320,7 +322,7 @@ export class Pitch {
             .attr('x2', line.endX * this.pitchOptions.scaler + 50)
             .attr('y2', line.endY * this.pitchOptions.scaler + 50)
             .attr('marker-end', 'url(#arrow)');
-        }
+        });
         break;
     }
     // console.log('add layer');
