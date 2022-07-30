@@ -111,7 +111,8 @@ export class Pitch {
       .attr('width', '100%')
       .attr(
         'viewBox',
-        `0 0 ${sizes.width + pitchOptions.padding} ${sizes.height + pitchOptions.padding
+        `0 0 ${sizes.width + pitchOptions.padding} ${
+          sizes.height + pitchOptions.padding
         }`,
       );
 
@@ -259,18 +260,18 @@ export class Pitch {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const arrow = this.pitchOptions?.showArrows
       ? currentPitch
-        .append('svg:defs')
-        .append('svg:marker')
-        .attr('id', 'arrow')
-        .attr('viewBox', '0 -5 10 10')
-        .attr('refX', 0) //so that it comes towards the center.
-        .attr('markerWidth', 5)
-        .attr('markerHeight', 5)
-        .attr('strokeWidth', layer.options.width || 1.2)
-        .attr('orient', 'auto')
-        .append('svg:path')
-        .attr('d', 'M0,-5L10,0L0,5')
-        .style('fill', layer.options.color || 'magenta')
+          .append('svg:defs')
+          .append('svg:marker')
+          .attr('id', 'arrow')
+          .attr('viewBox', '0 -5 10 10')
+          .attr('refX', 0) //so that it comes towards the center.
+          .attr('markerWidth', 5)
+          .attr('markerHeight', 5)
+          .attr('strokeWidth', layer.options.width || 1.2)
+          .attr('orient', 'auto')
+          .append('svg:path')
+          .attr('d', 'M0,-5L10,0L0,5')
+          .style('fill', layer.options.color || 'magenta')
       : null;
 
     const tooltip = d3.select('.tooltip-area').style('opacity', 0);
