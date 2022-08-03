@@ -6,6 +6,7 @@ import {
   RabonaCircleLayerData,
   RabonaLineLayerData,
   RabonaPassLayerData,
+  RabonaPassLayerOptions,
 } from '../Layer/Layer';
 
 export type RabonaPitchOptions = {
@@ -16,7 +17,6 @@ export type RabonaPitchOptions = {
   linecolour: string;
   fillcolour: string;
   vertical?: boolean;
-  showArrows?: boolean;
 };
 
 type RabonaPitchSizeOptions = {
@@ -257,8 +257,7 @@ export class Pitch {
 
     const currentPitch = this.pitch?.append('g').attr('id', id);
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const arrow = this.pitchOptions?.showArrows
+    layer.options.showArrows
       ? currentPitch
           .append('svg:defs')
           .append('svg:marker')
@@ -300,13 +299,7 @@ export class Pitch {
             .append('circle')
             .attr('cx', pass.startX * this.pitchOptions.scaler + 50)
             .attr('cy', pass.startY * this.pitchOptions.scaler + 50)
-            .attr('r', 20)
-            .style('fill', layer.options.color);
-          currentPitch
-            .append('circle')
-            .attr('cx', pass.endX * this.pitchOptions.scaler + 50)
-            .attr('cy', pass.endY * this.pitchOptions.scaler + 50)
-            .attr('r', 20)
+            .attr('r', (layer.options as RabonaPassLayerOptions).circleRadius || 15)
             .style('fill', layer.options.color);
         });
         break;
