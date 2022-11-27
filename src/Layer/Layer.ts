@@ -1,6 +1,12 @@
 import { Pitch } from '../Pitch';
 
-export type RabonaLayer = 'line' | 'circle' | 'passLayer';
+export enum RabonaLayerType {
+  Line = 'line',
+  Circle = 'circle',
+  PassLayer = 'passLayer',
+}
+
+export type RabonaLayer = RabonaLayerType;
 export type RabonaLineLayerOptions = {
   color: string;
   width: number;
@@ -8,8 +14,14 @@ export type RabonaLineLayerOptions = {
 };
 
 export type RabonaPassLayerOptions = RabonaLineLayerOptions & {
-  circleRadius?: number;
+  radius?: number;
 };
+
+export type RabonaCircleLayerOptions = RabonaLineLayerOptions & {
+  radius: number;
+};
+
+export type RabonaLayerOptions = RabonaLineLayerOptions | RabonaPassLayerOptions;
 
 export type RabonaPassLayerData = {
   startX: number;
@@ -41,7 +53,7 @@ class Layer {
   public id?: string;
   constructor(
     public type: RabonaLayer,
-    public options: RabonaLineLayerOptions | RabonaPassLayerOptions,
+    public options: RabonaLayerOptions,
     public data: RabonaData,
   ) {
     // console.log(type, options, data);
@@ -70,9 +82,40 @@ export { Layer };
 
 export type CreateLayerInputs = {
   type: RabonaLayer;
-  options: RabonaLineLayerOptions;
+  options: RabonaLayerOptions;
   data: RabonaData;
 };
-export function createLayer({ type, options, data }: CreateLayerInputs) {
+
+export function createLayer({
+  type,
+  options,
+  data,
+}: {
+  type: 'passLayer';
+  options: RabonaPassLayerOptions;
+  data: RabonaPassLayerData[];
+}): Layer;
+
+export function createLayer({
+  type,
+  options,
+  data,
+}: {
+  type: 'line';
+  options: RabonaLineLayerOptions;
+  data: RabonaLineLayerData[];
+}): Layer;
+
+export function createLayer({
+  type,
+  options,
+  data,
+}: {
+  type: 'circle';
+  options: RabonaCircleLayerOptions;
+  data: RabonaCircleLayerData[];
+}): Layer;
+
+export function createLayer({ type, options, data }) {
   return new Layer(type, options, data);
 }

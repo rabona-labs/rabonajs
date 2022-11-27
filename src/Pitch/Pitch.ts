@@ -5,7 +5,6 @@ import { Layer } from '../Layer';
 import {
   RabonaCircleLayerData,
   RabonaLineLayerData,
-  RabonaPassLayerData,
   RabonaPassLayerOptions,
 } from '../Layer/Layer';
 
@@ -255,10 +254,10 @@ export class Pitch {
     // 	layer.beforeAdd(this);
     // }
 
-    const currentPitch = this.pitch?.append('g').attr('id', id);
+    const newLayer = this.pitch?.append('g').attr('id', id);
 
     layer.options.showArrows
-      ? currentPitch
+      ? newLayer
           .append('svg:defs')
           .append('svg:marker')
           .attr('id', 'arrow')
@@ -276,7 +275,7 @@ export class Pitch {
     switch (layer.type) {
       case 'circle':
         (layer.data as RabonaCircleLayerData[]).forEach((circle) => {
-          currentPitch
+          newLayer
             .append('circle')
             .attr('cx', circle.cx * this.pitchOptions.scaler + 50)
             .attr('cy', circle.cy * this.pitchOptions.scaler + 50)
@@ -285,9 +284,11 @@ export class Pitch {
         });
         break;
       case 'passLayer':
-        (layer.data as RabonaPassLayerData[]).forEach((pass) => {
-          currentPitch
+        (layer.data as RabonaLineLayerData[]).forEach((pass) => {
+          const radius = (layer.options as RabonaPassLayerOptions).radius || 15;
+          newLayer
             .append('line')
+            .attr('id', 'line')
             .style('stroke', layer.options.color || 'magenta')
             .style('stroke-width', layer.options.width || 1.2)
             .attr('x1', pass.startX * this.pitchOptions.scaler + 50)
@@ -295,18 +296,37 @@ export class Pitch {
             .attr('x2', pass.endX * this.pitchOptions.scaler + 50)
             .attr('y2', pass.endY * this.pitchOptions.scaler + 50)
             .attr('marker-end', 'url(#arrow)');
-          currentPitch
+          newLayer
             .append('circle')
             .attr('cx', pass.startX * this.pitchOptions.scaler + 50)
             .attr('cy', pass.startY * this.pitchOptions.scaler + 50)
-            .attr('r', (layer.options as RabonaPassLayerOptions).circleRadius || 15)
+            .attr('r', radius)
             .style('fill', layer.options.color);
+
+          /* Create the text for each block */
+          newLayer
+            .append('text')
+            .text(function (d) {
+              return '10';
+            })
+            .attr('id', 'text')
+            .attr('x', pass.startX * this.pitchOptions.scaler + 50)
+            .attr('y', pass.startY * this.pitchOptions.scaler + 50)
+            .attr('font-family', 'sans-serif')
+            .attr('font-size', radius + 3)
+            // .attr('fill', 'red')
+            .attr('text-anchor', 'middle')
+            .attr('transform', 'translate(0,0)rotate(0)')
+            .attr('alignment-baseline', 'middle')
+            .attr('z-index', 1000)
+            .on('mouseover', (d) => d3.select(d.srcElement.parentNode).raise());
         });
+
         break;
       case 'line':
       default:
         (layer.data as RabonaLineLayerData[]).forEach((line) => {
-          currentPitch
+          newLayer
             .append('line')
             .style('stroke', layer.options.color || 'magenta')
             .style('stroke-width', layer.options.width || 1.2)
@@ -318,7 +338,6 @@ export class Pitch {
         });
         break;
     }
-    // console.log('add layer');
     return this;
   }
 
