@@ -5,7 +5,6 @@ import { Layer } from '../Layer';
 import {
   RabonaCircleLayerData,
   RabonaLineLayerData,
-  RabonaPassLayerData,
   RabonaPassLayerOptions,
 } from '../Layer/Layer';
 
@@ -285,7 +284,7 @@ export class Pitch {
         });
         break;
       case 'passLayer':
-        (layer.data as RabonaPassLayerData[]).forEach((pass) => {
+        (layer.data as RabonaLineLayerData[]).forEach((pass) => {
           currentPitch
             .append('line')
             .style('stroke', layer.options.color || 'magenta')
@@ -299,7 +298,7 @@ export class Pitch {
             .append('circle')
             .attr('cx', pass.startX * this.pitchOptions.scaler + 50)
             .attr('cy', pass.startY * this.pitchOptions.scaler + 50)
-            .attr('r', (layer.options as RabonaPassLayerOptions).circleRadius || 15)
+            .attr('r', (layer.options as RabonaPassLayerOptions).radius || 15)
             .style('fill', layer.options.color);
         });
         break;

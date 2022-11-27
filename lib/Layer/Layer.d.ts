@@ -1,12 +1,20 @@
 import { Pitch } from '../Pitch';
-export declare type RabonaLayer = 'line' | 'circle' | 'passLayer';
+export declare enum RabonaLayerType {
+    Line = "line",
+    Circle = "circle",
+    PassLayer = "passLayer"
+}
+export declare type RabonaLayer = RabonaLayerType;
 export declare type RabonaLineLayerOptions = {
     color: string;
     width: number;
     showArrows?: boolean;
 };
 export declare type RabonaPassLayerOptions = RabonaLineLayerOptions & {
-    circleRadius?: number;
+    radius?: number;
+};
+export declare type RabonaCircleLayerOptions = RabonaLineLayerOptions & {
+    radius: number;
 };
 export declare type RabonaLayerOptions = RabonaLineLayerOptions | RabonaPassLayerOptions;
 export declare type RabonaPassLayerData = {
@@ -44,4 +52,18 @@ export declare type CreateLayerInputs = {
     options: RabonaLayerOptions;
     data: RabonaData;
 };
-export declare function createLayer({ type, options, data }: CreateLayerInputs): Layer;
+export declare function createLayer({ type, options, data, }: {
+    type: 'passLayer';
+    options: RabonaPassLayerOptions;
+    data: RabonaPassLayerData[];
+}): Layer;
+export declare function createLayer({ type, options, data, }: {
+    type: 'line';
+    options: RabonaLineLayerOptions;
+    data: RabonaLineLayerData[];
+}): Layer;
+export declare function createLayer({ type, options, data, }: {
+    type: 'circle';
+    options: RabonaCircleLayerOptions;
+    data: RabonaCircleLayerData[];
+}): Layer;
