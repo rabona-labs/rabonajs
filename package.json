@@ -7,8 +7,9 @@
   "url": "https://github.com/orabazu/rabonajs",
   "scripts": {
     "ts-types": "tsc",
-    "build": "rimraf lib && tsup && yarn ts-types",
+    "build:dev": "rimraf lib && tsup && yarn ts-types",
     "build:watch": "rimraf lib && yarn ts-types && tsup --watch",
+    "build": "rimraf lib && tsup && yarn ts-types",
     "lint:fix": "eslint ./src --ext .ts,.tsx --quiet --fix --ignore-path ./.gitignore",
     "lint:format": "prettier  --loglevel warn --write \"./**/*.{ts,tsx,css,md,json}\" ",
     "lint": "yarn lint:format && yarn lint:fix "

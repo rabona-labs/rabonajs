@@ -11,6 +11,8 @@ export type RabonaPassLayerOptions = RabonaLineLayerOptions & {
   circleRadius?: number;
 };
 
+export type RabonaLayerOptions = RabonaLineLayerOptions | RabonaPassLayerOptions;
+
 export type RabonaPassLayerData = {
   startX: number;
   startY: number;
@@ -41,7 +43,7 @@ class Layer {
   public id?: string;
   constructor(
     public type: RabonaLayer,
-    public options: RabonaLineLayerOptions | RabonaPassLayerOptions,
+    public options: RabonaLayerOptions,
     public data: RabonaData,
   ) {
     // console.log(type, options, data);
@@ -70,7 +72,7 @@ export { Layer };
 
 export type CreateLayerInputs = {
   type: RabonaLayer;
-  options: RabonaLineLayerOptions;
+  options: RabonaLayerOptions;
   data: RabonaData;
 };
 export function createLayer({ type, options, data }: CreateLayerInputs) {
