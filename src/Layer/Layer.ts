@@ -28,6 +28,7 @@ export type RabonaPassLayerData = {
   startY: number;
   endX: number;
   endY: number;
+  label: string;
 };
 
 export type RabonaLineLayerData = {

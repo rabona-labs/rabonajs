@@ -5,6 +5,7 @@ import { Layer } from '../Layer';
 import {
   RabonaCircleLayerData,
   RabonaLineLayerData,
+  RabonaPassLayerData,
   RabonaPassLayerOptions,
 } from '../Layer/Layer';
 
@@ -284,7 +285,7 @@ export class Pitch {
         });
         break;
       case 'passLayer':
-        (layer.data as RabonaLineLayerData[]).forEach((pass) => {
+        (layer.data as RabonaPassLayerData[]).forEach((pass) => {
           const radius = (layer.options as RabonaPassLayerOptions).radius || 15;
           newLayer
             .append('line')
@@ -304,22 +305,24 @@ export class Pitch {
             .style('fill', layer.options.color);
 
           /* Create the text for each block */
-          newLayer
-            .append('text')
-            .text(function (d) {
-              return '10';
-            })
-            .attr('id', 'text')
-            .attr('x', pass.startX * this.pitchOptions.scaler + 50)
-            .attr('y', pass.startY * this.pitchOptions.scaler + 50)
-            .attr('font-family', 'sans-serif')
-            .attr('font-size', radius + 3)
-            // .attr('fill', 'red')
-            .attr('text-anchor', 'middle')
-            .attr('transform', 'translate(0,0)rotate(0)')
-            .attr('alignment-baseline', 'middle')
-            .attr('z-index', 1000)
-            .on('mouseover', (d) => d3.select(d.srcElement.parentNode).raise());
+          if (pass.label) {
+            newLayer
+              .append('text')
+              .text(function () {
+                return pass.label;
+              })
+              .attr('id', 'text')
+              .attr('x', pass.startX * this.pitchOptions.scaler + 50)
+              .attr('y', pass.startY * this.pitchOptions.scaler + 50)
+              .attr('font-family', 'sans-serif')
+              .attr('font-size', radius + 3)
+              // .attr('fill', 'red')
+              .attr('text-anchor', 'middle')
+              .attr('transform', 'translate(0,0)rotate(0)')
+              .attr('alignment-baseline', 'middle')
+              .attr('z-index', 1000)
+              .on('mouseover', (d) => d3.select(d.srcElement.parentNode).raise());
+          }
         });
 
         break;
