@@ -3,10 +3,10 @@ import uniqid from 'uniqid';
 
 import { Layer } from '../Layer';
 import {
+  RabonaBallMovementData,
+  RabonaBallMovementOptions,
   RabonaCircleLayerData,
   RabonaLineLayerData,
-  RabonaPassLayerData,
-  RabonaPassLayerOptions,
 } from '../Layer/Layer';
 
 export type RabonaPitchOptions = {
@@ -284,9 +284,9 @@ export class Pitch {
             .style('fill', layer.options.color);
         });
         break;
-      case 'passLayer':
-        (layer.data as RabonaPassLayerData[]).forEach((pass) => {
-          const radius = (layer.options as RabonaPassLayerOptions).radius || 15;
+      case 'ballMovement':
+        (layer.data as RabonaBallMovementData[]).forEach((pass) => {
+          const radius = (layer.options as RabonaBallMovementOptions).radius || 15;
           newLayer
             .append('line')
             .attr('id', 'line')

@@ -3,7 +3,7 @@ import { Pitch } from '../Pitch';
 export enum RabonaLayerType {
   Line = 'line',
   Circle = 'circle',
-  PassLayer = 'passLayer',
+  BallMovement = 'ballMovement',
 }
 
 export type RabonaLayer = RabonaLayerType;
@@ -13,7 +13,7 @@ export type RabonaLineLayerOptions = {
   showArrows?: boolean;
 };
 
-export type RabonaPassLayerOptions = RabonaLineLayerOptions & {
+export type RabonaBallMovementOptions = RabonaLineLayerOptions & {
   radius?: number;
 };
 
@@ -21,9 +21,9 @@ export type RabonaCircleLayerOptions = RabonaLineLayerOptions & {
   radius: number;
 };
 
-export type RabonaLayerOptions = RabonaLineLayerOptions | RabonaPassLayerOptions;
+export type RabonaLayerOptions = RabonaLineLayerOptions | RabonaBallMovementOptions;
 
-export type RabonaPassLayerData = {
+export type RabonaBallMovementData = {
   startX: number;
   startY: number;
   endX: number;
@@ -47,7 +47,7 @@ export type RabonaCircleLayerData = {
 export type RabonaData =
   | RabonaLineLayerData[]
   | RabonaCircleLayerData[]
-  | RabonaPassLayerData[];
+  | RabonaBallMovementData[];
 
 class Layer {
   public pitchToAdd?: Pitch;
@@ -92,9 +92,9 @@ export function createLayer({
   options,
   data,
 }: {
-  type: 'passLayer';
-  options: RabonaPassLayerOptions;
-  data: RabonaPassLayerData[];
+  type: 'ballMovement';
+  options: RabonaBallMovementOptions;
+  data: RabonaBallMovementData[];
 }): Layer;
 
 export function createLayer({

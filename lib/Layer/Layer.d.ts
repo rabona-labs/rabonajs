@@ -2,7 +2,7 @@ import { Pitch } from '../Pitch';
 export declare enum RabonaLayerType {
     Line = "line",
     Circle = "circle",
-    PassLayer = "passLayer"
+    BallMovement = "ballMovement"
 }
 export declare type RabonaLayer = RabonaLayerType;
 export declare type RabonaLineLayerOptions = {
@@ -10,14 +10,14 @@ export declare type RabonaLineLayerOptions = {
     width: number;
     showArrows?: boolean;
 };
-export declare type RabonaPassLayerOptions = RabonaLineLayerOptions & {
+export declare type RabonaBallMovementOptions = RabonaLineLayerOptions & {
     radius?: number;
 };
 export declare type RabonaCircleLayerOptions = RabonaLineLayerOptions & {
     radius: number;
 };
-export declare type RabonaLayerOptions = RabonaLineLayerOptions | RabonaPassLayerOptions;
-export declare type RabonaPassLayerData = {
+export declare type RabonaLayerOptions = RabonaLineLayerOptions | RabonaBallMovementOptions;
+export declare type RabonaBallMovementData = {
     startX: number;
     startY: number;
     endX: number;
@@ -35,7 +35,7 @@ export declare type RabonaCircleLayerData = {
     cx: number;
     cy: number;
 };
-export declare type RabonaData = RabonaLineLayerData[] | RabonaCircleLayerData[] | RabonaPassLayerData[];
+export declare type RabonaData = RabonaLineLayerData[] | RabonaCircleLayerData[] | RabonaBallMovementData[];
 declare class Layer {
     type: RabonaLayer;
     options: RabonaLayerOptions;
@@ -54,9 +54,9 @@ export declare type CreateLayerInputs = {
     data: RabonaData;
 };
 export declare function createLayer({ type, options, data, }: {
-    type: 'passLayer';
-    options: RabonaPassLayerOptions;
-    data: RabonaPassLayerData[];
+    type: 'ballMovement';
+    options: RabonaBallMovementOptions;
+    data: RabonaBallMovementData[];
 }): Layer;
 export declare function createLayer({ type, options, data, }: {
     type: 'line';
