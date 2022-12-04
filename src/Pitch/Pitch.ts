@@ -257,22 +257,6 @@ export class Pitch {
 
     const newLayer = this.pitch?.append('g').attr('id', id);
 
-    layer.options.showArrows
-      ? newLayer
-          .append('svg:defs')
-          .append('svg:marker')
-          .attr('id', 'arrow')
-          .attr('viewBox', '0 -5 10 10')
-          .attr('refX', 0) //so that it comes towards the center.
-          .attr('markerWidth', 5)
-          .attr('markerHeight', 5)
-          .attr('strokeWidth', layer.options.width || 1.2)
-          .attr('orient', 'auto')
-          .append('svg:path')
-          .attr('d', 'M0,-5L10,0L0,5')
-          .style('fill', layer.options.color || 'magenta')
-      : null;
-
     switch (layer.type) {
       case 'circle':
         (layer.data as RabonaCircleLayerData[]).forEach((circle) => {
@@ -297,6 +281,22 @@ export class Pitch {
           const textColor = (options as RabonaBallMovementOptions).getTextColor
             ? (options as RabonaBallMovementOptions).getTextColor?.(record)
             : 'black';
+
+          layer.options.showArrows
+            ? newLayer
+                .append('svg:defs')
+                .append('svg:marker')
+                .attr('id', 'arrow')
+                .attr('viewBox', '0 -5 10 10')
+                .attr('refX', 0) //so that it comes towards the center.
+                .attr('markerWidth', 5)
+                .attr('markerHeight', 5)
+                .attr('strokeWidth', layer.options.width || 1.2)
+                .attr('orient', 'auto')
+                .append('svg:path')
+                .attr('d', 'M0,-5L10,0L0,5')
+                .style('fill', lineColor || 'magenta')
+            : null;
 
           newLayer
             .append('line')
@@ -340,6 +340,22 @@ export class Pitch {
       case 'line':
       default:
         (layer.data as RabonaLineLayerData[]).forEach((line) => {
+          layer.options.showArrows
+            ? newLayer
+                .append('svg:defs')
+                .append('svg:marker')
+                .attr('id', 'arrow')
+                .attr('viewBox', '0 -5 10 10')
+                .attr('refX', 0) //so that it comes towards the center.
+                .attr('markerWidth', 5)
+                .attr('markerHeight', 5)
+                .attr('strokeWidth', layer.options.width || 1.2)
+                .attr('orient', 'auto')
+                .append('svg:path')
+                .attr('d', 'M0,-5L10,0L0,5')
+                .style('fill', layer.options.color || 'magenta')
+            : null;
+
           newLayer
             .append('line')
             .style('stroke', layer.options.color || 'magenta')
