@@ -285,38 +285,49 @@ export class Pitch {
         });
         break;
       case 'ballMovement':
-        (layer.data as RabonaBallMovementData[]).forEach((pass) => {
-          const radius = (layer.options as RabonaBallMovementOptions).radius || 15;
+        (layer.data as RabonaBallMovementData[]).forEach((record) => {
+          const { options } = layer;
+          const radius = (options as RabonaBallMovementOptions).radius || 15;
+          const lineColor = options.getLineColor
+            ? options.getLineColor(record)
+            : options.color;
+          const circleColor = (options as RabonaBallMovementOptions).getCircleColor
+            ? (options as RabonaBallMovementOptions).getCircleColor?.(record)
+            : options.color;
+          const textColor = (options as RabonaBallMovementOptions).getTextColor
+            ? (options as RabonaBallMovementOptions).getTextColor?.(record)
+            : 'black';
+
           newLayer
             .append('line')
             .attr('id', 'line')
-            .style('stroke', layer.options.color || 'magenta')
-            .style('stroke-width', layer.options.width || 1.2)
-            .attr('x1', pass.startX * this.pitchOptions.scaler + 50)
-            .attr('y1', pass.startY * this.pitchOptions.scaler + 50)
-            .attr('x2', pass.endX * this.pitchOptions.scaler + 50)
-            .attr('y2', pass.endY * this.pitchOptions.scaler + 50)
+            .style('stroke', lineColor || 'magenta')
+            .style('stroke-width', options.width || 1.2)
+            .attr('x1', record.startX * this.pitchOptions.scaler + 50)
+            .attr('y1', record.startY * this.pitchOptions.scaler + 50)
+            .attr('x2', record.endX * this.pitchOptions.scaler + 50)
+            .attr('y2', record.endY * this.pitchOptions.scaler + 50)
             .attr('marker-end', 'url(#arrow)');
           newLayer
             .append('circle')
-            .attr('cx', pass.startX * this.pitchOptions.scaler + 50)
-            .attr('cy', pass.startY * this.pitchOptions.scaler + 50)
+            .attr('cx', record.startX * this.pitchOptions.scaler + 50)
+            .attr('cy', record.startY * this.pitchOptions.scaler + 50)
             .attr('r', radius)
-            .style('fill', layer.options.color);
+            .style('fill', circleColor);
 
           /* Create the text for each block */
-          if (pass.label) {
+          if (record.label) {
             newLayer
               .append('text')
               .text(function () {
-                return pass.label;
+                return record.label;
               })
               .attr('id', 'text')
-              .attr('x', pass.startX * this.pitchOptions.scaler + 50)
-              .attr('y', pass.startY * this.pitchOptions.scaler + 50)
+              .attr('x', record.startX * this.pitchOptions.scaler + 50)
+              .attr('y', record.startY * this.pitchOptions.scaler + 50)
               .attr('font-family', 'sans-serif')
               .attr('font-size', radius + 3)
-              // .attr('fill', 'red')
+              .attr('fill', textColor)
               .attr('text-anchor', 'middle')
               .attr('transform', 'translate(0,0)rotate(0)')
               .attr('alignment-baseline', 'middle')

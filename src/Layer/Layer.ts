@@ -11,10 +11,13 @@ export type RabonaLineLayerOptions = {
   color: string;
   width: number;
   showArrows?: boolean;
+  getLineColor?: (data) => string;
 };
 
 export type RabonaBallMovementOptions = RabonaLineLayerOptions & {
   radius?: number;
+  getCircleColor?: (data) => string;
+  getTextColor?: (data) => string;
 };
 
 export type RabonaCircleLayerOptions = RabonaLineLayerOptions & {
