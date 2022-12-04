@@ -9,9 +9,12 @@ export declare type RabonaLineLayerOptions = {
     color: string;
     width: number;
     showArrows?: boolean;
+    getLineColor?: (data: any) => string;
 };
 export declare type RabonaBallMovementOptions = RabonaLineLayerOptions & {
     radius?: number;
+    getCircleColor?: (data: any) => string;
+    getTextColor?: (data: any) => string;
 };
 export declare type RabonaCircleLayerOptions = RabonaLineLayerOptions & {
     radius: number;
