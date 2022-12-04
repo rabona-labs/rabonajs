@@ -286,7 +286,7 @@ export class Pitch {
             ? newLayer
                 .append('svg:defs')
                 .append('svg:marker')
-                .attr('id', 'arrow')
+                .attr('id', `arrow-${id}`)
                 .attr('viewBox', '0 -5 10 10')
                 .attr('refX', 0) //so that it comes towards the center.
                 .attr('markerWidth', 5)
@@ -307,7 +307,7 @@ export class Pitch {
             .attr('y1', record.startY * this.pitchOptions.scaler + 50)
             .attr('x2', record.endX * this.pitchOptions.scaler + 50)
             .attr('y2', record.endY * this.pitchOptions.scaler + 50)
-            .attr('marker-end', 'url(#arrow)');
+            .attr('marker-end', `url(#arrow-${id})`);
           newLayer
             .append('circle')
             .attr('cx', record.startX * this.pitchOptions.scaler + 50)
@@ -344,7 +344,7 @@ export class Pitch {
             ? newLayer
                 .append('svg:defs')
                 .append('svg:marker')
-                .attr('id', 'arrow')
+                .attr('id', `arrow-${id}`)
                 .attr('viewBox', '0 -5 10 10')
                 .attr('refX', 0) //so that it comes towards the center.
                 .attr('markerWidth', 5)
@@ -364,7 +364,7 @@ export class Pitch {
             .attr('y1', line.startY * this.pitchOptions.scaler + 50)
             .attr('x2', line.endX * this.pitchOptions.scaler + 50)
             .attr('y2', line.endY * this.pitchOptions.scaler + 50)
-            .attr('marker-end', 'url(#arrow)');
+            .attr('marker-end', `url(#arrow-${id})`);
         });
         break;
     }
