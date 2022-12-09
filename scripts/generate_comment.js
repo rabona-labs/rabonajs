@@ -34,5 +34,5 @@ generateText(
   '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',
 ).then((response) => {
   // Print the generated text
-  console.log(response.data.choices[0].text);
+  console.log(JSON.stringify(response));
 });
