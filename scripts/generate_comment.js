@@ -18,7 +18,7 @@ const completions = await openaiClient.createCompletion({
 completions()
   .then((response) => {
     // Print the generated text
-    console.log(JSON.stringify(response));
+    console.log(response.data.choices[0].text);
   })
   .error((error) => {
     console.log(error);
