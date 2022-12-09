@@ -8,6 +8,7 @@ const openaiClient = new OpenAIApi(configuration);
 
 try {
   const diffOutput = '${{ toJson(steps.git-diff.outputs.stdout) }}';
+
   const changes = diffOutput.split('\n').join(' ');
 
   const completions = await openaiClient.createCompletion({
