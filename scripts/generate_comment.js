@@ -1,25 +1,20 @@
 import { Configuration, OpenAIApi } from 'openai';
 
 const configuration = new Configuration({
-  apiKey: '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',
+  apiKey: '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',
 });
 
 const openaiClient = new OpenAIApi(configuration);
 
-const completions = await openaiClient.createCompletion({
-  model: 'gpt-3',
-  prompt:
-    'Please review the code changes in this pull request and provide comments on any potential errors or problems you see',
-  max_tokens: 256,
-  n: 1,
-});
-
-// Generate text using the GPT-3 model
-completions()
-  .then((response) => {
-    // Print the generated text
-    console.log(response.data.choices[0].text);
-  })
-  .error((error) => {
-    console.log(error);
+try {
+  const completions = await openaiClient.createCompletion({
+    model: 'text-davinci-003',
+    prompt: '${{ toJson(steps.git-diff.outputs.stdout) }}',
+    max_tokens: 256,
+    n: 1,
   });
+
+  console.log(completions.data.choices[0].text);
+} catch (error) {
+  console.error(error);
+}
