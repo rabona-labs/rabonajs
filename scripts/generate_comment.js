@@ -15,7 +15,11 @@ const completions = await openaiClient.createCompletion({
 });
 
 // Generate text using the GPT-3 model
-completions().then((response) => {
-  // Print the generated text
-  console.log(JSON.stringify(response));
-});
+completions()
+  .then((response) => {
+    // Print the generated text
+    console.log(JSON.stringify(response));
+  })
+  .error((error) => {
+    console.log(error);
+  });
