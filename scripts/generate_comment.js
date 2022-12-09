@@ -1,7 +1,7 @@
 import { Configuration, OpenAIApi } from 'openai';
 
 const configuration = new Configuration({
-  apiKey: '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',
+  apiKey: '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',
 });
 
 const openaiClient = new OpenAIApi(configuration);
@@ -9,7 +9,8 @@ const openaiClient = new OpenAIApi(configuration);
 try {
   const completions = await openaiClient.createCompletion({
     model: 'text-davinci-003',
-    prompt: '${{ toJson(steps.git-diff.outputs.stdout) }}',
+    prompt:
+      'Send me suggestions for these changes in a PR ${{ toJson(steps.git-diff.outputs.stdout) }}',
     max_tokens: 256,
     n: 1,
   });
