@@ -9,6 +9,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+      - run: git fetch
       - name: Get diff
         run: git diff origin/main --full-index
       - name: Install dependencies
