@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
 async function generateText(prompt, accessToken) {
   // Set up the request body
