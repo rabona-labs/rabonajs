@@ -9,8 +9,8 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-
-      - run: git diff main --full-index
+      - name: Get diff
+        run: git diff main --full-index
       - name: Install dependencies
         run: |
           npm install
