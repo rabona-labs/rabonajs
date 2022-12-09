@@ -14,7 +14,7 @@ jobs:
         run: git diff origin/main --full-index
       - name: Install dependencies
         run: |
-          npm Install openai
+          npm install openai
       - name: Generate comments
         run: |
           node scripts/generate_comment.js
