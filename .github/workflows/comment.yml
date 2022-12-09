@@ -10,7 +10,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Get diff
-        run: git diff main --full-index
+        run: git diff origin/main --full-index
       - name: Install dependencies
         run: |
           npm install
