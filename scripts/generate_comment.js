@@ -1,15 +1,18 @@
 import { Configuration, OpenAIApi } from 'openai';
 
 const configuration = new Configuration({
-  apiKey: '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',
+  apiKey: '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',
 });
 
 const openaiClient = new OpenAIApi(configuration);
 
 try {
+  const diffOutput = '${{ toJson(steps.git-diff.outputs.stdout) }}';
+  const changes = diffOutput.split('\n').join(' ');
+
   const completions = await openaiClient.createCompletion({
     model: 'text-davinci-003',
-    prompt: '${{ toJson(steps.git-diff.outputs.stdout) }}',
+    prompt: changes,
     max_tokens: 256,
     n: 1,
   });
