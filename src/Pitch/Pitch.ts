@@ -77,6 +77,7 @@ export class Pitch {
   }
 
   constructor(private pitchSelector: string, private pitchOptions: RabonaPitchOptions) {
+    this.pitchOptions.scaler = this.pitchOptions.scaler || 6;
     this.sizes = {
       width: pitchOptions.width * pitchOptions.scaler,
       height: pitchOptions.height * pitchOptions.scaler,

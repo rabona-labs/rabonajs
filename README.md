@@ -30,7 +30,6 @@ npm install rabonajs
 import Rabona from 'rabonajs';
 
 const pitchOptions = {
-  scaler: 6,
   height: 80,
   width: 120,
   padding: 100,
