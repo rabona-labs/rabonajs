@@ -45,6 +45,7 @@ export declare class Pitch {
     initPitch(pitchSelector: string, pitchOptions: RabonaPitchOptions, sizes: RabonaPitchSizeOptions): any;
     addLayer(this: Pitch, layer: Layer): Pitch;
     removeLayer(layer: Layer): this;
+    removeAllLayers(): this;
 }
 export declare function createPitch(pitchSelector: string, pitchOptions: RabonaPitchOptions): Pitch;
 export {};

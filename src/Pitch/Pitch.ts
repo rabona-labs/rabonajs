@@ -6,6 +6,7 @@ import {
   RabonaBallMovementData,
   RabonaBallMovementOptions,
   RabonaCircleLayerData,
+  RabonaCircleLayerOptions,
   RabonaLineLayerData,
 } from '../Layer/Layer';
 
@@ -77,6 +78,7 @@ export class Pitch {
   }
 
   constructor(private pitchSelector: string, private pitchOptions: RabonaPitchOptions) {
+    this.pitchOptions.scaler = this.pitchOptions.scaler || 6;
     this.sizes = {
       width: pitchOptions.width * pitchOptions.scaler,
       height: pitchOptions.height * pitchOptions.scaler,
@@ -259,13 +261,42 @@ export class Pitch {
 
     switch (layer.type) {
       case 'circle':
-        (layer.data as RabonaCircleLayerData[]).forEach((circle) => {
+        (layer.data as RabonaCircleLayerData[]).forEach((record) => {
+          const options = layer.options as RabonaCircleLayerOptions;
+
+          const circleColor = options.getCircleColor
+            ? options.getCircleColor?.(record)
+            : options.color;
+
           newLayer
             .append('circle')
-            .attr('cx', circle.cx * this.pitchOptions.scaler + 50)
-            .attr('cy', circle.cy * this.pitchOptions.scaler + 50)
-            .attr('r', circle.radius || 10)
-            .style('fill', layer.options.color);
+            .attr('cx', record.startX * this.pitchOptions.scaler + 50)
+            .attr('cy', record.startY * this.pitchOptions.scaler + 50)
+            .attr('r', record.radius || 10)
+            .style('fill', circleColor);
+          options.stroke ? newLayer.style('stroke', options.stroke) : null;
+          options.strokeWidth
+            ? newLayer.style('stroke-width', options.strokeWidth)
+            : null;
+
+          if (record.label) {
+            newLayer
+              .append('text')
+              .text(function () {
+                return record.label;
+              })
+              .attr('id', 'text')
+              .attr('x', record.startX * this.pitchOptions.scaler + 50)
+              .attr('y', record.startY * this.pitchOptions.scaler + 50)
+              .attr('font-family', 'sans-serif')
+              .attr('font-size', record.radius + 3)
+              .attr('fill', 'black') // TODO: make this dynamic
+              .attr('text-anchor', 'middle')
+              .attr('transform', 'translate(0,0)rotate(0)')
+              .attr('alignment-baseline', 'middle')
+              .attr('z-index', 1000)
+              .on('mouseover', (d) => d3.select(d.srcElement.parentNode).raise());
+          }
         });
         break;
       case 'ballMovement':
@@ -386,6 +417,12 @@ export class Pitch {
     layer.pitchToAdd = undefined;
     layer.id = undefined;
 
+    return this;
+  }
+
+  removeAllLayers() {
+    this.pitch.selectAll('g').remove();
+    this._layers = {};
     return this;
   }
 }
