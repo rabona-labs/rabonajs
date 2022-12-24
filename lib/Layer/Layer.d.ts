@@ -15,6 +15,7 @@ export declare type RabonaBallMovementOptions = RabonaLineLayerOptions & {
     radius?: number;
     getCircleColor?: (data: any) => string;
     getTextColor?: (data: any) => string;
+    getWitdh?: (data: any) => number;
 };
 export declare type RabonaCircleLayerOptions = RabonaLineLayerOptions & {
     radius: number;
