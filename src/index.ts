@@ -5,5 +5,4 @@ const Rabona = {
   pitch,
   layer,
 };
-//comment
 export default Rabona;
