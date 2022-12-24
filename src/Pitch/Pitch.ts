@@ -312,8 +312,8 @@ export class Pitch {
           const textColor = (options as RabonaBallMovementOptions).getTextColor
             ? (options as RabonaBallMovementOptions).getTextColor?.(record)
             : 'black';
-          const width = (options as RabonaBallMovementOptions).getWitdh
-            ? (options as RabonaBallMovementOptions).getWitdh?.(record)
+          const width = (options as RabonaBallMovementOptions).getWidth
+            ? (options as RabonaBallMovementOptions).getWidth?.(record)
             : layer.options.width;
 
           layer.options.showArrows
