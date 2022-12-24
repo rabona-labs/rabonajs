@@ -18,6 +18,8 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
+    "commitizen": "^4.2.6",
+    "cz-conventional-changelog": "3.3.0",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
@@ -33,6 +35,8 @@
   "module": "lib/index.js",
   "types": "lib/index.d.ts",
   "dependencies": {
+    "@commitlint/cli": "^17.3.0",
+    "@commitlint/config-conventional": "^17.3.0",
     "d3": "^7.4.4",
     "typescript": "^4.7.2",
     "uniqid": "^5.4.0"
@@ -44,5 +48,10 @@
       "eslint ./src --ext .ts,.tsx --quiet --fix --ignore-path ./.gitignore",
       "prettier  --loglevel warn --write \"./**/*.{ts,tsx,css,md,json}\" "
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
