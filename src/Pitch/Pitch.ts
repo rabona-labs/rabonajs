@@ -312,6 +312,9 @@ export class Pitch {
           const textColor = (options as RabonaBallMovementOptions).getTextColor
             ? (options as RabonaBallMovementOptions).getTextColor?.(record)
             : 'black';
+          const width = (options as RabonaBallMovementOptions).getWitdh
+            ? (options as RabonaBallMovementOptions).getWitdh?.(record)
+            : layer.options.width;
 
           layer.options.showArrows
             ? newLayer
@@ -322,7 +325,7 @@ export class Pitch {
                 .attr('refX', 0) //so that it comes towards the center.
                 .attr('markerWidth', 5)
                 .attr('markerHeight', 5)
-                .attr('strokeWidth', layer.options.width || 1.2)
+                .attr('strokeWidth', width || 1.2)
                 .attr('orient', 'auto')
                 .append('svg:path')
                 .attr('d', 'M0,-5L10,0L0,5')
@@ -333,7 +336,7 @@ export class Pitch {
             .append('line')
             .attr('id', 'line')
             .style('stroke', lineColor || 'magenta')
-            .style('stroke-width', options.width || 1.2)
+            .style('stroke-width', width || 1.2)
             .attr('x1', record.startX * this.pitchOptions.scaler + 50)
             .attr('y1', record.startY * this.pitchOptions.scaler + 50)
             .attr('x2', record.endX * this.pitchOptions.scaler + 50)
