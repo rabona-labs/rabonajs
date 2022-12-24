@@ -12,16 +12,21 @@
     "build": "rimraf lib && tsup && yarn ts-types",
     "lint:fix": "eslint ./src --ext .ts,.tsx --quiet --fix --ignore-path ./.gitignore",
     "lint:format": "prettier  --loglevel warn --write \"./**/*.{ts,tsx,css,md,json}\" ",
-    "lint": "yarn lint:format && yarn lint:fix "
+    "lint": "yarn lint:format && yarn lint:fix ",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
+    "commitizen": "^4.2.6",
+    "cz-conventional-changelog": "3.3.0",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.1.0",
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
     "tsup": "^6.0.1"
@@ -30,9 +35,23 @@
   "module": "lib/index.js",
   "types": "lib/index.d.ts",
   "dependencies": {
+    "@commitlint/cli": "^17.3.0",
+    "@commitlint/config-conventional": "^17.3.0",
     "d3": "^7.4.4",
     "typescript": "^4.7.2",
     "uniqid": "^5.4.0"
   },
-  "type": "module"
+  "type": "module",
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,md}": [
+      "bash -c tsc --noEmit",
+      "eslint ./src --ext .ts,.tsx --quiet --fix --ignore-path ./.gitignore",
+      "prettier  --loglevel warn --write \"./**/*.{ts,tsx,css,md,json}\" "
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
