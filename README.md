@@ -89,10 +89,22 @@ const ballMovement = Rabona.layer({
 
 ## Docs
 
-In progress
+You can find the docs and examples here.
+
+(https://orabazu.github.io/rabonajs-docs/)
 
 ## Contributing
 
-[Contributing](CONTRIBUTING.md)
+Feel free to open a PR or an issue.
+
+## Commit messages
+
+We use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for commit messages.
+When you install the dependencies, husky will run a pre-commit hook to check if your commit message is valid.
+To make your life easier you can use commitizen which is already installed as a dev dependency.
+To use it, run `npx cz` instead of `git commit` and follow the instructions.
 
 ## Shoutouts 🙏
+
+- (https://soccermatics.readthedocs.io/en/latest/index.html)
+- (https://www.youtube.com/@McKayJohns)
