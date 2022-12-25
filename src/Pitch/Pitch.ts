@@ -365,9 +365,7 @@ export class Pitch {
               .attr('text-anchor', 'middle')
               .attr('transform', 'translate(0,0)rotate(0)')
               .attr('alignment-baseline', 'middle')
-              .attr('z-index', 1000)
-              .raise(); // Add this line
-            // .on('mouseover', (d) => d3.select(d.srcElement.parentNode).raise());
+              .attr('z-index', 1000);
           }
         });
 
