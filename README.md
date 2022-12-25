@@ -2,7 +2,7 @@
 
 <img width="250" alt="Screen Shot 2022-06-09 at 23 16 45" src="https://user-images.githubusercontent.com/812622/172951243-7b294967-7326-40dc-8f8d-cf194cca5510.png">
 
-## RabonaJS - A Javascript library for football(soccer) visualisations
+## RabonaJS - A Javascript library for football/soccer visualisations
 
 **RabonaJS** is a simple D3 wrapper to make soccer visualisations
 
@@ -89,6 +89,9 @@ const ballMovement = Rabona.layer({
 
 ## Docs
 
+![Screen Shot 2022-12-26 at 01 40 49](https://user-images.githubusercontent.com/812622/209483853-c1382e85-4edf-42df-9640-a7ae60d82e43.png)
+
+
 You can find the docs and examples here.
 
 (https://orabazu.github.io/rabonajs-docs/)
@@ -97,7 +100,7 @@ You can find the docs and examples here.
 
 Feel free to open a PR or an issue.
 
-## Commit messages
+## Commit messages
 
 We use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for commit messages.
 When you install the dependencies, husky will run a pre-commit hook to check if your commit message is valid.
