@@ -366,7 +366,8 @@ export class Pitch {
               .attr('transform', 'translate(0,0)rotate(0)')
               .attr('alignment-baseline', 'middle')
               .attr('z-index', 1000)
-              .on('mouseover', (d) => d3.select(d.srcElement.parentNode).raise());
+              .raise(); // Add this line
+            // .on('mouseover', (d) => d3.select(d.srcElement.parentNode).raise());
           }
         });
 
@@ -402,6 +403,10 @@ export class Pitch {
         });
         break;
     }
+    this.pitch.selectAll('text').each(function () {
+      //@ts-ignore
+      d3.select(this).raise();
+    });
     return this;
   }
 
