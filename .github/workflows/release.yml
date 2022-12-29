@@ -47,6 +47,4 @@ jobs:
             ## What's Changed :eyes:
 
             ${{ steps.changelog.outputs.changes }}
-
-            **Full Changelog**: https://github.com/orabazu/rabonajs/compare//${{ steps.semver.outputs.current }}...${{ steps.semver.outputs.next }}
           token: ${{ secrets.GITHUB_TOKEN }}
