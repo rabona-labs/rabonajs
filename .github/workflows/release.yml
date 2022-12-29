@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    branches: [main, feat/changelog-action]
+    branches: [main, beta]
 
 jobs:
   release:
@@ -26,8 +26,8 @@ jobs:
       #   run: yarn test:unit --if-present
       - name: Build
         run: yarn build
-    # - name: Release
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-    #   run: npx semantic-release
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release
