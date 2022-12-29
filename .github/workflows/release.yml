@@ -1,0 +1,52 @@
+on:
+  push:
+    branches:
+      - main
+      - feat/changelog-action
+name: release
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Get Next Semantic Version
+        id: semver
+        uses: ietf-tools/semver-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: master
+
+      - name: Create Draft Release
+        uses: ncipollo/release-action@v1.12.0
+        with:
+          prerelease: true
+          draft: false
+          commit: ${{ github.sha }}
+          name: ${{ steps.semver.outputs.next }}
+          tag: ${{ steps.semver.outputs.next }}
+          body: "*pending*"
+
+      - name: Update CHANGELOG
+        id: changelog
+        uses: requarks/changelog-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.semver.outputs.next }}
+          writeToFile: false
+
+      - name: Update Release
+        uses: ncipollo/release-action@v1.12.0
+        with:
+          allowUpdates: true
+          draft: false
+          name: ${{ steps.semver.outputs.next }}
+          tag: ${{ steps.semver.outputs.next }}
+          body: |
+            ## What's Changed :eyes:
+
+            ${{ steps.changelog.outputs.changes }}
+
+            **Full Changelog**: https://github.com/orabazu/rabonajs/compare//${{ steps.semver.outputs.current }}...${{ steps.semver.outputs.next }}
+          token: ${{ secrets.GITHUB_TOKEN }}
