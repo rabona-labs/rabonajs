@@ -1,7 +1,6 @@
 on:
-  push:
+  pull_request:
     branches:
-      - main
       - feat/changelog-action
 name: release
 jobs:
