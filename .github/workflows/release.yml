@@ -8,43 +8,28 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Get Next Semantic Version
-        id: semver
-        uses: ietf-tools/semver-action@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: master
-
-      - name: Create Draft Release
-        uses: ncipollo/release-action@v1.12.0
-        with:
-          prerelease: true
-          draft: false
-          commit: ${{ github.sha }}
-          name: ${{ steps.semver.outputs.next }}
-          tag: ${{ steps.semver.outputs.next }}
-          body: "*pending*"
+      - name: Checkout Code
+        uses: actions/checkout@v2
 
       - name: Update CHANGELOG
         id: changelog
         uses: requarks/changelog-action@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ steps.semver.outputs.next }}
-          writeToFile: false
+          token: ${{ github.token }}
+          tag: ${{ github.ref_name }}
 
-      - name: Update Release
-        uses: ncipollo/release-action@v1.12.0
+      - name: Create Release
+        uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
           draft: false
-          name: ${{ steps.semver.outputs.next }}
-          tag: ${{ steps.semver.outputs.next }}
-          body: |
-            ## What's Changed :eyes:
+          name: ${{ github.ref_name }}
+          body: ${{ steps.changelog.outputs.changes }}
+          token: ${{ github.token }}
 
-            ${{ steps.changelog.outputs.changes }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit CHANGELOG.md
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          branch: main
+          commit_message: "docs: update CHANGELOG.md for ${{ github.ref_name }} [skip ci]"
+          file_pattern: CHANGELOG.md
