@@ -1,8 +1,7 @@
 on:
   push:
-    branches:
-      - main
-      - feat/changelog-action
+    tags:
+      - "*"
 name: release
 jobs:
   deploy:
