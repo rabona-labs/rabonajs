@@ -1,0 +1,29 @@
+on:
+  pull_request:
+    branches: [main, beta, feat/changelog-action]
+name: test-release
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - name: Install dependencies
+        run: yarn install
+      - name: Install semantic-release extra plugins
+        run: yarn add --dev @semantic-release/changelog @semantic-release/git
+      - name: Lint
+        run: yarn lint:fix
+      # - name: Test
+      #   run: yarn test:unit --if-present
+      - name: Build
+        run: yarn build
+    # - name: Release
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    #   run: npx semantic-release

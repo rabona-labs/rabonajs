@@ -1,6 +1,6 @@
 {
   "name": "rabonajs",
-  "version": "0.0.3-alpha.11",
+  "version": "0.0.3-alpha.12",
   "description": "RabonaJS is a simple D3 wrapper to make soccer visualisations",
   "author": "ozerorhun@gmail.com",
   "license": "MIT",
@@ -29,6 +29,7 @@
     "lint-staged": "^13.1.0",
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
+    "standard-version": "^9.5.0",
     "tsup": "^6.0.1"
   },
   "main": "lib/index.cjs",
