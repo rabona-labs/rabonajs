@@ -1,7 +1,7 @@
 on:
   pull_request:
     branches: [main, beta, feat/changelog-action]
-name: release
+name: test-release
 jobs:
   release:
     runs-on: ubuntu-latest
