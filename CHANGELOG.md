@@ -1,3 +1,10 @@
+# [1.0.0-beta.2](https://github.com/orabazu/rabonajs/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2023-01-04)
+
+
+### Bug Fixes
+
+* **test:** test ([cee6446](https://github.com/orabazu/rabonajs/commit/cee64460d4a676ad8ff4fdd1a2268b9055a797f4))
+
 # 1.0.0-beta.1 (2023-01-04)
 
 
