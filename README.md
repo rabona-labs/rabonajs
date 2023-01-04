@@ -91,7 +91,6 @@ const ballMovement = Rabona.layer({
 
 ![Screen Shot 2022-12-26 at 01 40 49](https://user-images.githubusercontent.com/812622/209483853-c1382e85-4edf-42df-9640-a7ae60d82e43.png)
 
-
 You can find the docs and examples here.
 
 (https://orabazu.github.io/rabonajs-docs/)
