@@ -1,3 +1,10 @@
+# 1.0.0 (2023-01-04)
+
+
+### Bug Fixes
+
+* retest ([#21](https://github.com/orabazu/rabonajs/issues/21)) ([cd4f49d](https://github.com/orabazu/rabonajs/commit/cd4f49ddd9e43fe854802d0db6a292e4070267a3))
+
 # [1.0.0-beta.2](https://github.com/orabazu/rabonajs/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2023-01-04)
 
 ### Bug Fixes
