@@ -9,7 +9,7 @@ import {
   RabonaLineLayerData,
   RabonaLineLayerOptions,
 } from '../Layer/Layer';
-import { Pitch, RabonaPitchOptions } from './pitch';
+import { Pitch, RabonaPitchOptions } from './Pitch';
 
 describe('Pitch', () => {
   it('should create an instance of Pitch', () => {
