@@ -1,7 +1,24 @@
-import { layer } from './Layer';
-import { pitch } from './Pitch';
+declare function createPitch(pitchSelector: string, pitchOptions: RabonaPitchOptions): Pitch;
+
+declare function createLayer({ type, options, data, }: {
+    type: 'ballMovement';
+    options: RabonaBallMovementOptions;
+    data: RabonaBallMovementData[];
+}): Layer;
+declare function createLayer({ type, options, data, }: {
+    type: 'line';
+    options: RabonaLineLayerOptions;
+    data: RabonaLineLayerData[];
+}): Layer;
+declare function createLayer({ type, options, data, }: {
+    type: 'circle';
+    options: RabonaCircleLayerOptions;
+    data: RabonaCircleLayerData[];
+}): Layer;
+
 declare const Rabona: {
-    pitch: typeof pitch;
-    layer: typeof layer;
+    pitch: typeof createPitch;
+    layer: typeof createLayer;
 };
-export default Rabona;
+
+export { Rabona as default };

@@ -2,7 +2,10 @@
   "compilerOptions": {
     "declaration": true,
     "target": "ESNext",
-    "lib": ["esnext", "dom"],
+    "lib": [
+      "esnext",
+      "dom"
+    ],
     "strict": true,
     "noImplicitAny": false,
     "esModuleInterop": true,
@@ -17,5 +20,9 @@
   "include": [
     "./src/**/*",
     "lib/index.d.ts" // declaration file path
+  ],
+  //exclude test files from build
+  "exclude": [
+    "./src/**/*.test.ts"
   ]
 }
