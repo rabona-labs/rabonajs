@@ -17,5 +17,7 @@
   "include": [
     "./src/**/*",
     "lib/index.d.ts" // declaration file path
-  ]
+  ],
+  //exclude test files from build
+  "exclude": ["test", "**/*.d.ts"]
 }

@@ -18,8 +18,8 @@ jobs:
         run: yarn add --dev @semantic-release/changelog @semantic-release/git
       - name: Lint
         run: yarn lint:fix
-      # - name: Test
-      #   run: yarn test:unit --if-present
+      - name: Test
+        run: yarn test
       - name: Build
         run: yarn build
     # - name: Release
