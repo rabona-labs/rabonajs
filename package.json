@@ -50,7 +50,7 @@
   "type": "module",
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,md}": [
-      "tsup",
+      "bash -c tsc --project tsconfig.json --noEmit",
       "eslint ./src --ext .ts,.tsx --quiet --fix --ignore-path ./.gitignore",
       "prettier  --loglevel warn --write \"./**/*.{ts,tsx,css,md,json}\" "
     ]

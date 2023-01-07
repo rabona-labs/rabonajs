@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-import Rabona from '../index';
+import Rabona from '../src/index';
 import {
   RabonaBallMovementData,
   RabonaBallMovementOptions,
@@ -8,8 +8,8 @@ import {
   RabonaCircleLayerOptions,
   RabonaLineLayerData,
   RabonaLineLayerOptions,
-} from '../Layer/Layer';
-import { Pitch, RabonaPitchOptions } from './Pitch';
+} from '../src/Layer/Layer';
+import { Pitch, RabonaPitchOptions } from '../src/Pitch/Pitch';
 
 describe('Pitch', () => {
   it('should create an instance of Pitch', () => {

@@ -6,7 +6,7 @@ import {
   RabonaLayerType,
   RabonaLineLayerData,
   RabonaLineLayerOptions,
-} from './Layer';
+} from '../src/Layer/Layer';
 
 describe('createLayer', () => {
   it('should create a layer with the correct type and options', () => {
